@@ -2,17 +2,25 @@
  <div>
    <div class="flex">
      <div class="flex" v-for="data in results">
-       <a-card hoverable style="width: 240px" >
+       <a-card hoverable :loading="loading" style="width: 240px">
+
          <img
            slot="cover"
-           alt="example"
+           :alt="data.name"
            :src="data.thumbnail.path + '.' + data.thumbnail.extension"
          />
-         <a-card-meta :title="data.name">
+         <a-card-meta>
+           <template slot="title">
+             <NuxtLink :to=" '/marvel_characters/' + data.id + '/view/'">
+              {{data.name}}
+             </NuxtLink>
+           </template>
+
            <template slot="description">
              {{ data.desciption }}
            </template>
          </a-card-meta>
+
        </a-card>
      </div>
 
@@ -27,6 +35,7 @@ export default {
   data() {
     return{
       results: null,
+      loading: false,
     }
   },
   created() {
@@ -34,6 +43,7 @@ export default {
   },
   methods: {
     getData(){
+      this.loading = true;
       this.$axios.$get("https://gateway.marvel.com/v1/public/characters", {
         params: {
           ts: 1,
@@ -43,6 +53,7 @@ export default {
       })
       .then((response) => {
         this.results = response.data.results;
+        this.loading = false;
       })
     }
   }
