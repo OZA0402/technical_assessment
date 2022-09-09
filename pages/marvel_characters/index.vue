@@ -1,35 +1,32 @@
 <template>
  <div>
-   <a-card title="Default size card" style="width: 300px">
-     <a slot="extra" href="#">more</a>
-     <p>card content</p>
-     <p>card content</p>
-     <p>card content</p>
-   </a-card>
+   <div class="flex">
+     <div class="flex" v-for="data in results">
+       <a-card hoverable style="width: 240px" >
+         <img
+           slot="cover"
+           alt="example"
+           :src="data.thumbnail.path + '.' + data.thumbnail.extension"
+         />
+         <a-card-meta :title="data.name">
+           <template slot="description">
+             {{ data.desciption }}
+           </template>
+         </a-card-meta>
+       </a-card>
+     </div>
 
-   <a-card hoverable style="width: 240px">
-     <img
-       slot="cover"
-       alt="example"
-       src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-     />
-     <a-card-meta title="Europe Street beat">
-       <template slot="description">
-         www.instagram.com
-       </template>
-     </a-card-meta>
-   </a-card>
+   </div>
+
  </div>
 </template>
 
 <script>
-import 'ant-design-vue/dist/antd.css';
-
 export default {
   name: "index",
   data() {
     return{
-      results: null
+      results: null,
     }
   },
   created() {
@@ -45,8 +42,6 @@ export default {
         }
       })
       .then((response) => {
-        console.log("response")
-        console.log(response)
         this.results = response.data.results;
       })
     }
