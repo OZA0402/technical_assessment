@@ -1,28 +1,34 @@
 <template>
  <div>
    <div class="flex">
-     <div class="flex" v-for="data in results">
-       <a-card hoverable :loading="loading" style="width: 240px">
+       <div class="wrapper grid grid-cols-4 gap-1 justify-items-center w-full">
+         <div class="p-2.5" v-for="data in results">
+           <a-card hoverable :loading="loading" style="width: 240px">
+             <img
+               slot="cover"
+               :alt="data.name"
+               :src="data.thumbnail.path + '.' + data.thumbnail.extension"
+             />
+             <a-card-meta>
+               <template slot="title">
+                 <NuxtLink :to=" '/marvel_characters/' + data.id + '/view/'">
+                   {{data.name}}
+                 </NuxtLink>
+               </template>
 
-         <img
-           slot="cover"
-           :alt="data.name"
-           :src="data.thumbnail.path + '.' + data.thumbnail.extension"
-         />
-         <a-card-meta>
-           <template slot="title">
-             <NuxtLink :to=" '/marvel_characters/' + data.id + '/view/'">
-              {{data.name}}
-             </NuxtLink>
-           </template>
+               <template slot="description">
+                 {{ data.desciption }}
+               </template>
+             </a-card-meta>
+           </a-card>
+         </div>
+<!--       <a-row>-->
+<!--         <a-col :span="6" >-->
 
-           <template slot="description">
-             {{ data.desciption }}
-           </template>
-         </a-card-meta>
+<!--         </a-col>-->
+<!--       </a-row>-->
 
-       </a-card>
-     </div>
+         </div>
 
    </div>
 
