@@ -2,8 +2,8 @@
   <div>
     <div class="flex">
       <div class="wrapper grid grid-cols-4 gap-1 justify-items-center w-full">
-        <div class="p-2.5" v-for="data in results">
-          <a-card hoverable :loading="loading" style="width: 240px">
+        <div class="flex p-2.5" v-for="data in results">
+          <a-card hoverable :loading="loading" style="width: 240px" @click="character_info(data)">
             <img
               slot="cover"
               :alt="data.name"
@@ -11,9 +11,7 @@
             />
             <a-card-meta>
               <template slot="title">
-                <NuxtLink :to="'/marvel_characters/' + data.id + '/view/'">
                   {{ data.name }}
-                </NuxtLink>
               </template>
 
               <template slot="description">
@@ -22,7 +20,14 @@
             </a-card-meta>
           </a-card>
         </div>
+
+          <div class="col-start-4">
+            <a-pagination v-model="current" :total="50" show-less-items />
+          </div>
+
       </div>
+
+
     </div>
   </div>
 </template>
@@ -34,6 +39,7 @@ export default {
     return {
       results: null,
       loading: false,
+      current: 4,
     };
   },
   created() {
@@ -55,6 +61,10 @@ export default {
           this.loading = false;
         });
     },
+
+    character_info(data){
+      this.$router.push('/marvel_characters/' + data.id + '/view/');
+    }
   },
 };
 </script>

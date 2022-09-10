@@ -1,5 +1,55 @@
 <template>
-  <div>hi</div>
+  <div>
+    <a-page-header
+      title="Back"
+      @back="
+        () => {
+          this.$router.back();
+        }
+      "
+    >
+    </a-page-header>
+
+      <div v-for="data in results" class="flex justify-center ">
+
+      <div class="flex flex-col p-4">
+        <div class="flex justify-center">
+          <img
+            slot="cover"
+            :alt="data.name"
+            :src="data.thumbnail.path + '.' + data.thumbnail.extension"
+            class="h-60 w-60"
+          />
+        </div>
+
+
+        <div class="flex flex-col text-center text-3xl">
+          {{ data.name }}
+        </div>
+
+        <div>
+
+        <a-list item-layout="horizontal" :data-source="results">
+          <a-list-item slot="renderItem" slot-scope="item, index">
+            <a-list-item-meta
+              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+            >
+              <a slot="title" href="https://www.antdv.com/">{{ item.id }}</a>
+              <a-avatar
+                slot="avatar"
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+              />
+            </a-list-item-meta>
+          </a-list-item>
+        </a-list>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
 </template>
 
 <script>
