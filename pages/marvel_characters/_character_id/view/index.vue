@@ -26,13 +26,19 @@
         </div>
 
         <div>
-          <a-collapse accordion v-for="data in results" style="width: 400px">
+          <a-collapse
+            accordion
+            v-for="data in results"
+            :key="data.id"
+            style="width: 400px"
+          >
             <a-collapse-panel key="1" header="Comics">
               <a-list :data-source="data.comics.items">
                 <a-list-item
                   slot="renderItem"
                   slot-scope="item, index"
-                  @click="comicModal(item, index, data)"
+                  @click="modal(item)"
+                  class="cursor-pointer"
                 >
                   {{ item.name }}
                 </a-list-item>
@@ -40,21 +46,33 @@
             </a-collapse-panel>
             <a-collapse-panel key="2" header="Series">
               <a-list :data-source="data.series.items">
-                <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item
+                  slot="renderItem"
+                  slot-scope="item, index"
+                  @click="modal(item)"
+                >
                   {{ item.name }}
                 </a-list-item>
               </a-list>
             </a-collapse-panel>
             <a-collapse-panel key="3" header="Stories">
               <a-list :data-source="data.stories.items">
-                <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item
+                  slot="renderItem"
+                  slot-scope="item, index"
+                  @click="modal(item)"
+                >
                   {{ item.name }}
                 </a-list-item>
               </a-list>
             </a-collapse-panel>
             <a-collapse-panel key="4" header="Events">
               <a-list :data-source="data.events.items">
-                <a-list-item slot="renderItem" slot-scope="item, index">
+                <a-list-item
+                  slot="renderItem"
+                  slot-scope="item, index"
+                  @click="modal(item)"
+                >
                   {{ item.name }}
                 </a-list-item>
               </a-list>
@@ -64,7 +82,12 @@
       </div>
 
       <a-modal :title="title" :visible="visible">
-        <div v-for="data in comicInfo">{{ data.description }}</div>
+        <div v-for="data in desc">
+          <a-empty
+            v-if="data.description === null || data.description === ''"
+          />
+          {{ data.description }}
+        </div>
         <template slot="footer">
           <a-button key="submit" type="primary" @click="handleOk">
             Ok
@@ -83,7 +106,7 @@ export default {
       results: null,
       title: null,
       visible: false,
-      comicInfo: null,
+      desc: null,
     };
   },
   created() {
@@ -118,21 +141,17 @@ export default {
         });
     },
 
-    comicModal(data, index, result) {
-      console.log("data");
-      console.log(data);
-      console.log("index");
-      console.log(index);
-      console.log("result");
-      console.log(result);
-
+    modal(data) {
       this.title = data.name;
       this.visible = true;
 
-      this.getComicData(data);
+      this.desc = null;
+      this.getListData(data);
+
     },
 
-    getComicData(data) {
+
+    getListData(data) {
       this.$axios
         .$get(`${data.resourceURI}`, {
           params: {
@@ -144,12 +163,13 @@ export default {
         .then((response) => {
           console.log("response");
           console.log(response);
-          this.comicInfo = response.data.results;
+          this.desc = response.data.results;
         });
     },
 
     handleOk() {
       this.visible = false;
+      this.desc = null;
     },
   },
 };
