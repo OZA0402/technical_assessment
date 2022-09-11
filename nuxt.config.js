@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "technical_assessment",
+    title: "Marvel Characters",
     htmlAttrs: {
       lang: "en",
     },

@@ -1,5 +1,18 @@
 <template>
   <div>
+    <a-layout id="components-layout-demo-top-side" >
+      <a-layout-header class="header" style="background-color: black; height: 100px; padding-top: 0">
+        <div class="logo">
+
+        <img
+          class="w-36"
+          src="../../assets/img/marvel_logo.png"
+          style="vertical-align: middle"
+        />
+
+        </div>
+      </a-layout-header>
+    </a-layout>
     <div class="flex">
       <div class="wrapper grid grid-cols-4 gap-1 justify-items-center w-full">
         <div class="flex p-2.5" v-for="data in results">
@@ -105,4 +118,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#components-layout-demo-top-side .logo {
+  width: 120px;
+  height: 31px;
+  margin: 10px 28px 16px 0;
+  float: left;
+}
+
+</style>
