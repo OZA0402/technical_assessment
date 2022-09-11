@@ -147,9 +147,7 @@ export default {
 
       this.desc = null;
       this.getListData(data);
-
     },
-
 
     getListData(data) {
       this.$axios

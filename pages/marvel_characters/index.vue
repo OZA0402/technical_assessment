@@ -1,15 +1,16 @@
 <template>
   <div>
-    <a-layout id="components-layout-demo-top-side" >
-      <a-layout-header class="header" style="background-color: black; height: 100px; padding-top: 0">
+    <a-layout id="components-layout-demo-top-side">
+      <a-layout-header
+        class="header"
+        style="background-color: black; height: 100px; padding-top: 0"
+      >
         <div class="logo">
-
-        <img
-          class="w-36"
-          src="../../assets/img/marvel_logo.png"
-          style="vertical-align: middle"
-        />
-
+          <img
+            class="w-36"
+            src="../../assets/img/marvel_logo.png"
+            style="vertical-align: middle"
+          />
         </div>
       </a-layout-header>
     </a-layout>
@@ -125,5 +126,4 @@ export default {
   margin: 10px 28px 16px 0;
   float: left;
 }
-
 </style>
