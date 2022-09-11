@@ -22,7 +22,15 @@
         </div>
 
           <div class="col-start-4">
-            <a-pagination v-model="current" :total="50" show-less-items />
+            <a-pagination
+              v-model="current"
+              :total="total"
+              show-less-items
+              show-size-changer
+              :page-size-options="pageSizeOptions"
+              :page-size="pageSize"
+              @showSizeChange="onShowSizeChange"
+            />
           </div>
 
       </div>
@@ -39,16 +47,19 @@ export default {
     return {
       results: null,
       loading: false,
-      current: 4,
+      current: 1,
+      total: null,
+      pageSizeOptions: ['4', '8', '12', '16', '20'],
+      pageSize: 4,
     };
   },
   created() {
     this.getData();
   },
   methods: {
-    getData() {
+    async getData() {
       this.loading = true;
-      this.$axios
+      await this.$axios
         .$get("https://gateway.marvel.com/v1/public/characters", {
           params: {
             ts: 1,
@@ -57,6 +68,7 @@ export default {
           },
         })
         .then((response) => {
+          this.total = response.data.count;
           this.results = response.data.results;
           this.loading = false;
         });
@@ -64,7 +76,15 @@ export default {
 
     character_info(data){
       this.$router.push('/marvel_characters/' + data.id + '/view/');
-    }
+    },
+
+    async onShowSizeChange(current, pageSize) {
+      await this.getData();
+      let data = this.results.slice((current - 1) * pageSize, current * pageSize);
+      this.results = data;
+
+      this.pageSize = pageSize;
+    },
   },
 };
 </script>
