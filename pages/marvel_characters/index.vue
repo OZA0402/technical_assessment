@@ -30,6 +30,7 @@
               :page-size-options="pageSizeOptions"
               :page-size="pageSize"
               @showSizeChange="onShowSizeChange"
+              @change="onChange"
             />
           </div>
 
@@ -46,6 +47,7 @@ export default {
   data() {
     return {
       results: null,
+      marvel_characters: null,
       loading: false,
       current: 1,
       total: null,
@@ -70,6 +72,7 @@ export default {
         .then((response) => {
           this.total = response.data.count;
           this.results = response.data.results;
+          this.marvel_characters = this.results;
           this.loading = false;
         });
     },
@@ -78,13 +81,21 @@ export default {
       this.$router.push('/marvel_characters/' + data.id + '/view/');
     },
 
-    async onShowSizeChange(current, pageSize) {
-      await this.getData();
-      let data = this.results.slice((current - 1) * pageSize, current * pageSize);
+    onShowSizeChange(current, pageSize) {
+      let characters = this.marvel_characters;
+      let data = characters.slice((current - 1) * pageSize, current * pageSize);
       this.results = data;
 
       this.pageSize = pageSize;
     },
+
+    onChange(pageNumber) {
+      let characters = this.marvel_characters;
+      let data = characters.slice((pageNumber - 1) * this.pageSize, pageNumber * this.pageSize);
+
+      this.results = data;
+    },
+
   },
 };
 </script>
