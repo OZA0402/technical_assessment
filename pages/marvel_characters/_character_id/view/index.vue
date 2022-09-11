@@ -31,7 +31,7 @@
             <a-collapse-panel key="1" header="Comics">
 
                 <a-list :data-source="data.comics.items">
-                  <a-list-item slot="renderItem" slot-scope="item, index" @click="comicModal(item, index)">
+                  <a-list-item slot="renderItem" slot-scope="item, index" @click="comicModal(item, index, data)">
                     {{ item.name }}
                   </a-list-item>
                 </a-list>
@@ -66,9 +66,19 @@
             </a-collapse-panel>
           </a-collapse>
         </div>
-
       </div>
 
+        <a-modal
+          :title="title"
+          :visible="visible"
+        >
+          <div v-for="data in comicInfo"> {{ data.description}}</div>
+          <template slot="footer">
+            <a-button key="submit" type="primary" @click="handleOk">
+              Ok
+            </a-button>
+          </template>
+        </a-modal>
 
     </div>
   </div>
@@ -80,6 +90,9 @@ export default {
   data() {
     return {
       results: null,
+      title: null,
+      visible: false,
+      comicInfo: null,
     };
   },
   created() {
@@ -114,12 +127,37 @@ export default {
         });
     },
 
-    comicModal(data, index){
+    comicModal(data, index, result){
       console.log("data")
       console.log(data)
       console.log("index")
       console.log(index)
-      
+      console.log("result")
+      console.log(result)
+
+      this.title = data.name;
+      this.visible = true;
+
+      this.getComicData(data);
+    },
+
+    getComicData(data){
+      this.$axios.$get(`${data.resourceURI}`, {
+        params:{
+          ts: 1,
+          apikey: "78b447af6136f7b546b974a1461ecf61",
+          hash: "5ace13da8a874e4080eff29c219043c3",
+      },
+      })
+      .then((response) => {
+        console.log("response")
+        console.log(response)
+        this.comicInfo = response.data.results;
+      })
+    },
+
+    handleOk(){
+      this.visible = false;
     }
 
   },
