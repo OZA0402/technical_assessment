@@ -28,21 +28,37 @@
         </div>
 
         <div>
+          <a-collapse accordion>
+            <a-collapse-panel key="1" header="Comics">
+              <div v-for="data in results">
+                <p v-for="comic in data.comics.items">
+                  {{comic.name}}
+                </p>
+              </div>
+            </a-collapse-panel>
+            <a-collapse-panel key="2" header="Series">
+              <div v-for="data in results">
+                <p v-for="comic in data.series.items">
+                  {{comic.name}}
+                </p>
+              </div>
+            </a-collapse-panel>
+            <a-collapse-panel key="3" header="Stories">
+              <div v-for="data in results">
+                <p v-for="comic in data.stories.items">
+                  {{comic.name}}
+                </p>
+              </div>
+            </a-collapse-panel>
+            <a-collapse-panel key="4" header="Events">
+              <div v-for="data in results">
+                <p v-for="comic in data.events.items">
+                  {{comic.name}}
+                </p>
+              </div>
+            </a-collapse-panel>
 
-        <a-list item-layout="horizontal" :data-source="results">
-          <a-list-item slot="renderItem" slot-scope="item, index">
-            <a-list-item-meta
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-            >
-              <a slot="title" href="https://www.antdv.com/">{{ item.id }}</a>
-              <a-avatar
-                slot="avatar"
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-              />
-            </a-list-item-meta>
-          </a-list-item>
-        </a-list>
-
+          </a-collapse>
         </div>
 
       </div>

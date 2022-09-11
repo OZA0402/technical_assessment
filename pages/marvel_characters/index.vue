@@ -20,24 +20,22 @@
             </a-card-meta>
           </a-card>
         </div>
-
-          <div class="col-start-4">
-            <a-pagination
-              v-model="current"
-              :total="total"
-              show-less-items
-              show-size-changer
-              :page-size-options="pageSizeOptions"
-              :page-size="pageSize"
-              @showSizeChange="onShowSizeChange"
-              @change="onChange"
-            />
-          </div>
-
       </div>
-
-
     </div>
+
+    <div class="float-right p-4">
+      <a-pagination
+        v-model="current"
+        :total="total"
+        show-less-items
+        show-size-changer
+        :page-size-options="pageSizeOptions"
+        :page-size="pageSize"
+        @showSizeChange="onShowSizeChange"
+        @change="onChange"
+      />
+    </div>
+
   </div>
 </template>
 
