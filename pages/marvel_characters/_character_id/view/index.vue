@@ -10,6 +10,12 @@
     >
     </a-page-header>
 
+    <div class="flex">
+      <div class="flex flex-col justify-center w-full my-28" v-if="results === null">
+        <a-spin />
+      </div>
+    </div>
+
     <div v-for="data in results" class="flex justify-center">
       <div class="flex flex-col p-4">
         <div class="flex justify-center">

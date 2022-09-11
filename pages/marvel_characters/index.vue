@@ -15,6 +15,12 @@
       </a-layout-header>
     </a-layout>
     <div class="flex">
+      <div class="flex flex-col justify-center w-full my-28" v-if="results === null">
+        <a-spin />
+      </div>
+    </div>
+
+    <div class="flex">
       <div class="wrapper grid grid-cols-4 gap-1 justify-items-center w-full">
         <div class="flex p-2.5" v-for="data in results">
           <a-card
