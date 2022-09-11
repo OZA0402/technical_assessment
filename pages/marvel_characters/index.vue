@@ -74,6 +74,7 @@ export default {
           this.results = response.data.results;
           this.marvel_characters = this.results;
           this.loading = false;
+          this.onShowSizeChange(this.current, this.pageSize)
         });
     },
 
