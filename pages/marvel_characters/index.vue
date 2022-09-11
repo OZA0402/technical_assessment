@@ -3,7 +3,12 @@
     <div class="flex">
       <div class="wrapper grid grid-cols-4 gap-1 justify-items-center w-full">
         <div class="flex p-2.5" v-for="data in results">
-          <a-card hoverable :loading="loading" style="width: 240px" @click="character_info(data)">
+          <a-card
+            hoverable
+            :loading="loading"
+            style="width: 240px"
+            @click="character_info(data)"
+          >
             <img
               slot="cover"
               :alt="data.name"
@@ -11,7 +16,7 @@
             />
             <a-card-meta>
               <template slot="title">
-                  {{ data.name }}
+                {{ data.name }}
               </template>
 
               <template slot="description">
@@ -35,7 +40,6 @@
         @change="onChange"
       />
     </div>
-
   </div>
 </template>
 
@@ -49,7 +53,7 @@ export default {
       loading: false,
       current: 1,
       total: null,
-      pageSizeOptions: ['4', '8', '12', '16', '20'],
+      pageSizeOptions: ["4", "8", "12", "16", "20"],
       pageSize: 4,
     };
   },
@@ -72,12 +76,12 @@ export default {
           this.results = response.data.results;
           this.marvel_characters = this.results;
           this.loading = false;
-          this.onShowSizeChange(this.current, this.pageSize)
+          this.onShowSizeChange(this.current, this.pageSize);
         });
     },
 
-    character_info(data){
-      this.$router.push('/marvel_characters/' + data.id + '/view/');
+    character_info(data) {
+      this.$router.push("/marvel_characters/" + data.id + "/view/");
     },
 
     onShowSizeChange(current, pageSize) {
@@ -90,11 +94,13 @@ export default {
 
     onChange(pageNumber) {
       let characters = this.marvel_characters;
-      let data = characters.slice((pageNumber - 1) * this.pageSize, pageNumber * this.pageSize);
+      let data = characters.slice(
+        (pageNumber - 1) * this.pageSize,
+        pageNumber * this.pageSize
+      );
 
       this.results = data;
     },
-
   },
 };
 </script>
